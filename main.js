@@ -1,4 +1,5 @@
-window.addEventListener('load', setProfilePictures);
+window.addEventListener('load', setPlayerProfilePicture);
+window.addEventListener('load', setComputerProfilePicture);
 
 const playerVictories = document.querySelector('#player-victories');
 const computerVictories = document.querySelector('#computer-victories');
@@ -14,6 +15,10 @@ const matchStats = {
 const btnContainer = document.querySelector('.button-container');
 const computerButtons = document.querySelectorAll('.computer-button');
 const playerButtons = document.querySelectorAll('.player-button');
+
+for(const computerButton of computerButtons) {
+    computerButton.disabled = true;
+}
 
 for(const playerButton of playerButtons) {
     const playerChoice = playerButton.getAttribute('id');
@@ -52,29 +57,47 @@ function playRound(playerChoice) {
 
     if (playerChoice === computerChoice) {
         matchStats.tieScore++;
-        matchResult.textContent = `That's a tie! ${playerChoice} vs ${computerChoice}!`;
     } else if (playerChoice === 'rock' && computerChoice === 'scissors' || playerChoice === 'paper' && computerChoice === 'rock' || playerChoice === 'scissors' && computerChoice === 'paper') {
         matchStats.playerScore++;
-        matchResult.textContent = `You win! ${playerChoice} vs ${computerChoice}!`;
         if(matchStats.playerScore === matchStats.maxScore) {
             matchResult.textContent = `THE MATCH IS OVER! You have won!`;
         }
     } else {
         matchStats.computerScore++;
-        matchResult.textContent = `Opponent wins! ${computerChoice} vs ${playerChoice}!`;
         if(matchStats.computerScore === matchStats.maxScore) {
             matchResult.textContent = `THE MATCH IS OVER! Your opponent has won!`;
         }
     }
+
+    const playerInfo = document.querySelector('#player-score');
+    const computerInfo = document.querySelector('#computer-score');
+    const tieInfo = document.querySelector('#tie-score');
+    tieInfo.textContent = `Total Ties: ${matchStats.tieScore}`
+    playerInfo.textContent = `Your Score: ${matchStats.playerScore}`;
+    computerInfo.textContent = `Opponent's Score: ${matchStats.computerScore}`;
+    playerVictories.textContent = `Victories: ${matchStats.playerWins}`;
+    computerVictories.textContent = `Victories: ${matchStats.computerWins}`;
 
     if(matchStats.playerScore === matchStats.maxScore || matchStats.computerScore === matchStats.maxScore) {
         matchStats.playerWins++;
         for(const playerButton of playerButtons) {
             playerButton.disabled = true;
         }
-        for(const computerButton of computerButtons) {
-            computerButton.disabled = true;
-        }
+        const keepPlaying = document.querySelector('.keep-playing');
+        keepPlaying.classList.remove('hidden');
+        keepPlaying.addEventListener('click', () => {
+            keepPlaying.classList.add('hidden');
+            matchStats.playerScore = 0;
+            matchStats.computerScore = 0;
+            matchStats.tieScore = 0;
+            matchResult.textContent = '';
+            tieInfo.textContent = 'Total Ties: 0';
+            playerInfo.textContent = 'Player Score: 0';
+            computerInfo.textContent = `Opponent's Score: 0`;
+            for(const playerButton of playerButtons) {
+                playerButton.disabled = false;
+            }
+        })
     }
     logScore();
     highlightVictories();
@@ -100,15 +123,14 @@ function clearButtonStyles() {
 function highlightButtons(computerChoice) {
     for(const computerButton of computerButtons) {
         if(computerChoice === 'rock' && computerButton.getAttribute('id') === 'computer-rock') {
-            computerButton.style.backgroundColor = 'red'
+            computerButton.style.backgroundColor = '#5c5c5c69'
         } else if(computerChoice === 'paper' && computerButton.getAttribute('id') === 'computer-paper') {
-            computerButton.style.backgroundColor = 'red'
+            computerButton.style.backgroundColor = '#5c5c5c69'
         } else if (computerChoice === 'scissors' && computerButton.getAttribute('id') === 'computer-scissors') {
-            computerButton.style.backgroundColor = 'red'
+            computerButton.style.backgroundColor = '#5c5c5c69'
         }
     }
 }
-
 
 function highlightVictories() {
     if(matchStats.playerWins > matchStats.computerWins) {
@@ -123,9 +145,12 @@ function highlightVictories() {
     }
 }
 
-function setProfilePictures() {
+function setPlayerProfilePicture() {
     const playerProfile = document.querySelector('.player-profile');
+    playerProfile.setAttribute('src', 'images/your-profile.jpg');
+}
+
+function setComputerProfilePicture() {
     const computerProfile = document.querySelector('.computer-profile');
-    playerProfile.setAttribute('src', 'images/profile.jpg');
-    computerProfile.setAttribute('src', 'images/profile.jpg');
+    computerProfile.setAttribute('src', 'images/computer-profile.jpg');
 }
