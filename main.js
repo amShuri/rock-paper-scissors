@@ -74,6 +74,7 @@ function playRound(playerChoice) {
         }
     }
     logScore();
+    highlightVictories();
 }
 
 function logScore() {
@@ -85,6 +86,19 @@ function logScore() {
     computerInfo.textContent = `Opponent Score: ${matchStats.computerScore}`;
     playerVictories.textContent = `Victories: ${matchStats.playerWins}`;
     computerVictories.textContent = `Victories: ${matchStats.computerWins}`;
+}
+
+function highlightVictories() {
+    if(matchStats.playerWins > matchStats.computerWins) {
+        playerVictories.style.color = "limegreen";
+        computerVictories.style.color = "#da3939"
+    } else if (matchStats.computerWins > matchStats.playerWins) {
+        playerVictories.style.color = "#da3939";
+        computerVictories.style.color = "limegreen"
+    } else if (matchStats.playerWins > 0 && matchStats.playerWins === matchStats.computerWins) {
+        playerVictories.style.color = "blue";
+        computerVictories.style.color = "blue"
+    }
 }
 
 function setProfilePictures() {
