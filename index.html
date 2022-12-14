@@ -5,15 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE-Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Rock, Paper, Scissors</title>
+    <title>Rock, Paper, Scissors!</title>
 </head>
 <body>
-    <button id="rock" class="gameButton">Rock</button>
-    <button id="paper" class="gameButton">Paper</button>
-    <button id="scissors" class="gameButton">Scissors</button>
-    <p id="match-result"></p>
-    <p id="player-score"></p>
-    <p id="computer-score"></p>
+    <header>
+        <h1>ROCK PAPER SCISSORS</h1>
+    </header>
+    <div class="container">
+        
+    <div class="log-container">
+        <p class="rule">The first player to score 5 points wins!</p>
+        <div class="log-box">
+            <p id="match-result">Winner: </p>
+            <p id="player-score">Your Score: 0</p>
+            <p id="computer-score">Opponent's Score: 0</p>
+            <p id="tie-score">Total Ties: 0</p>        
+        </div>
+    </div>
+
     <script src="main.js"></script>
 </body>
 </html>
