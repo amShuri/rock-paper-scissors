@@ -79,7 +79,11 @@ function playRound(playerChoice) {
     computerVictories.textContent = `Victories: ${matchStats.computerWins}`;
 
     if(matchStats.playerScore === matchStats.maxScore || matchStats.computerScore === matchStats.maxScore) {
-        matchStats.playerWins++;
+        if(matchStats.playerScore === matchStats.maxScore) {
+            matchStats.playerWins++;
+        } else if (matchStats.computerScore ===  matchStats.maxScore) {
+            matchStats.computerWins++;
+        }
         for(const playerButton of playerButtons) {
             playerButton.disabled = true;
         }
