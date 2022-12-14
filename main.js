@@ -1,9 +1,19 @@
-let playerScore = 0;
-let computerScore = 0;
-let maxScore = 5;
-const buttons = document.querySelectorAll('.gameButton');
-for(const button of buttons) {
-    button.addEventListener('click', playRound);
+window.addEventListener('load', setProfilePictures);
+
+const matchStats = {
+    playerScore: 0,
+    computerScore: 0,
+    tieScore: 0,
+    maxScore: 5
+}
+
+const btnContainer = document.querySelector('.button-container');
+const computerButtons = document.querySelectorAll('.computer-button');
+const playerButtons = document.querySelectorAll('.player-button');
+
+for(const playerButton of playerButtons) {
+    const playerChoice = playerButton.getAttribute('id');
+    playerButton.addEventListener('click', playRound.bind(null, playerChoice));
 }
 
 function getComputerChoice() {
@@ -12,42 +22,68 @@ function getComputerChoice() {
     return rockPaperScissors[randomNumber];
 }
 
-function getPlayerChoice() {
-    const buttons = document.querySelectorAll('.gameButton');
-    for(const button of buttons) {
-        return button.getAttribute('id');
-    }
-}
-
-function playRound() {
-    const playerChoice = getPlayerChoice();
+function playRound(playerChoice) {
     const computerChoice = getComputerChoice();
     const matchResult = document.querySelector('#match-result');
+    const playerProfile = document.querySelector('.player-profile');
+    const computerProfile = document.querySelector('.computer-profile');
+
+    if(playerChoice === 'rock') {
+        playerProfile.setAttribute('src', 'images/user-rock.jpg');
+    } else if (playerChoice === 'paper') {
+        playerProfile.setAttribute('src', 'images/user-paper.jpg');
+    } else if (playerChoice === 'scissors') {
+        playerProfile.setAttribute('src', 'images/user-scissors.jpg');
+    }
+    if(computerChoice === 'rock') {
+        computerProfile.setAttribute('src', 'images/computer-rock.jpg');
+    } else if (computerChoice === 'paper') {
+        computerProfile.setAttribute('src', 'images/computer-paper.jpg');
+    } else if (computerChoice === 'scissors') {
+        computerProfile.setAttribute('src', 'images/computer-scissors.jpg');
+    }
 
     if (playerChoice === computerChoice) {
-        matchResult.textContent = `That's a tie! Both player chose ${playerChoice  }!`;
+        matchStats.tieScore++;
+        matchResult.textContent = `That's a tie! ${playerChoice} vs ${computerChoice}!`;
     } else if (playerChoice === 'rock' && computerChoice === 'scissors' || playerChoice === 'paper' && computerChoice === 'rock' || playerChoice === 'scissors' && computerChoice === 'paper') {
-        playerScore++;
-        matchResult.textContent = `You win! Your ${playerChoice} beats the player's ${computerChoice}!`;
-        if(playerScore === maxScore) {
-            matchResult.textContent = `GAME IS OVER! You won. Your score is: ${playerScore}!`;
+        matchStats.playerScore++;
+        matchResult.textContent = `You win! ${playerChoice} vs ${computerChoice}!`;
+        if(matchStats.playerScore === matchStats.maxScore) {
+            matchResult.textContent = `THE MATCH IS OVER! You have won!`;
         }
     } else {
-        computerScore++;
-        matchResult.textContent = `Opponent wins! Their ${computerChoice} beats your ${playerChoice}!`;
-        if(computerScore === maxScore) {
-            matchResult.textContent = `GAME IS OVER! Your opponent won. Their score is: ${computerScore}!`;
+        matchStats.computerScore++;
+        matchResult.textContent = `Opponent wins! ${computerChoice} vs ${playerChoice}!`;
+        if(matchStats.computerScore === matchStats.maxScore) {
+            matchResult.textContent = `THE MATCH IS OVER! Your opponent has won!`;
         }
     }
 
-    if(playerScore === maxScore || computerScore === maxScore) {
-        for(const button of buttons) {
-            button.disabled = true;
+    if(matchStats.playerScore === matchStats.maxScore || matchStats.computerScore === matchStats.maxScore) {
+        matchStats.playerWins++;
+        for(const playerButton of playerButtons) {
+            playerButton.disabled = true;
+        }
+        for(const computerButton of computerButtons) {
+            computerButton.disabled = true;
         }
     }
+    logScore();
+}
 
+function logScore() {
     const playerInfo = document.querySelector('#player-score');
     const computerInfo = document.querySelector('#computer-score');
-    playerInfo.textContent = `Player's Score is ${playerScore}!`;
-    computerInfo.textContent = `Computer's Score is ${computerScore}!`;
+    const tieInfo = document.querySelector('#tie-score');
+    tieInfo.textContent = `Ties: ${matchStats.tieScore}`
+    playerInfo.textContent = `Your Score: ${matchStats.playerScore}`;
+    computerInfo.textContent = `Opponent Score: ${matchStats.computerScore}`;
+}
+
+function setProfilePictures() {
+    const playerProfile = document.querySelector('.player-profile');
+    const computerProfile = document.querySelector('.computer-profile');
+    playerProfile.setAttribute('src', 'images/profile.jpg');
+    computerProfile.setAttribute('src', 'images/profile.jpg');
 }
