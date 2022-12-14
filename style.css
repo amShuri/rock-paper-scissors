@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    max-width: 700px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+img {
+    display: block;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: rgba(89, 173, 241, 0.555);
+    min-height: 15vh;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+    gap: 0.5rem;
+}
+
+.log-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile-one, .profile-two, .log-box {
+    margin: 1rem;
+    text-align: center;
+}
+
+.log-box {
+    width: 500px;
+    height: auto;
+    color: #fff;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    box-shadow: inset -1px -1px 3px 1px rgba(0,0,0,0.600);
+    background-color:rgba(45, 102, 139, 0.7);
+    padding: 1rem;
+    margin-top: 5px;
+}
+
+.player-profile, .computer-profile {
+    border-radius: 20px;
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.411);
+    filter:opacity(85%);
+}
+
+.victories {
+    color: rgb(75, 75, 75);
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none;
+}
