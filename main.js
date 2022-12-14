@@ -32,6 +32,9 @@ function playRound(playerChoice) {
     const playerProfile = document.querySelector('.player-profile');
     const computerProfile = document.querySelector('.computer-profile');
 
+    clearButtonStyles();
+    highlightButtons(computerChoice);
+
     if(playerChoice === 'rock') {
         playerProfile.setAttribute('src', 'images/user-rock.jpg');
     } else if (playerChoice === 'paper') {
@@ -87,6 +90,25 @@ function logScore() {
     playerVictories.textContent = `Victories: ${matchStats.playerWins}`;
     computerVictories.textContent = `Victories: ${matchStats.computerWins}`;
 }
+
+function clearButtonStyles() {
+    for(const computerButton of computerButtons) {
+        computerButton.style.backgroundColor = '';
+    }
+}
+
+function highlightButtons(computerChoice) {
+    for(const computerButton of computerButtons) {
+        if(computerChoice === 'rock' && computerButton.getAttribute('id') === 'computer-rock') {
+            computerButton.style.backgroundColor = 'red'
+        } else if(computerChoice === 'paper' && computerButton.getAttribute('id') === 'computer-paper') {
+            computerButton.style.backgroundColor = 'red'
+        } else if (computerChoice === 'scissors' && computerButton.getAttribute('id') === 'computer-scissors') {
+            computerButton.style.backgroundColor = 'red'
+        }
+    }
+}
+
 
 function highlightVictories() {
     if(matchStats.playerWins > matchStats.computerWins) {
