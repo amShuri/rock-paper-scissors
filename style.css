@@ -6,10 +6,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
+html {
+    background: url('images/galaxy.jpg') center center fixed;
+    background-size: cover;
+}
+
 body {
     max-width: 700px;
     margin: 0 auto;
     min-height: 100vh;
+    overflow-y: auto;
+    background-color: rgb(231, 226, 210, 0.600);
 }
 
 img {
@@ -21,9 +28,7 @@ header {
     justify-content: center;
     align-items: center;
     color: #fff;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    background-color: rgba(89, 173, 241, 0.555);
+    background-color: rgba(155, 89, 241, 0.600);
     min-height: 15vh;
 }
 
@@ -59,24 +64,31 @@ header {
     font-size: 1.2rem;
     border-radius: 10px;
     box-shadow: inset -1px -1px 3px 1px rgba(0,0,0,0.600);
-    background-color:rgba(45, 102, 139, 0.7);
+    background-color:rgba(51, 45, 139, 0.7);
     padding: 1rem;
     margin-top: 5px;
 }
 
 .player-profile, .computer-profile {
     border-radius: 20px;
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.411);
+    box-shadow: 0 0 4px 1px rgba(92, 92, 92, 0.411);
     filter:opacity(85%);
 }
 
 .victories {
     color: rgb(75, 75, 75);
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 3px;
     font-size: 1.1rem;
 }
 
 .hidden {
     display: none;
+}
+
+.images-by {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
 }
