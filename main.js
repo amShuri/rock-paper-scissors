@@ -1,9 +1,13 @@
 window.addEventListener('load', setProfilePictures);
 
+const playerVictories = document.querySelector('#player-victories');
+const computerVictories = document.querySelector('#computer-victories');
 const matchStats = {
     playerScore: 0,
     computerScore: 0,
     tieScore: 0,
+    playerWins: 0,
+    computerWins: 0,
     maxScore: 5
 }
 
@@ -79,6 +83,8 @@ function logScore() {
     tieInfo.textContent = `Ties: ${matchStats.tieScore}`
     playerInfo.textContent = `Your Score: ${matchStats.playerScore}`;
     computerInfo.textContent = `Opponent Score: ${matchStats.computerScore}`;
+    playerVictories.textContent = `Victories: ${matchStats.playerWins}`;
+    computerVictories.textContent = `Victories: ${matchStats.computerWins}`;
 }
 
 function setProfilePictures() {
