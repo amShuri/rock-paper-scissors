@@ -27,6 +27,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: #fff;
     background-color: rgba(155, 89, 241, 0.600);
     min-height: 15vh;
@@ -46,49 +47,89 @@ header {
     gap: 0.5rem;
 }
 
-.log-container {
+.log-container,
+.keep-playing-holder {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
 }
 
-.profile-one, .profile-two, .log-box {
+.profile-one,
+.profile-two,
+.log-container,
+.log-box{
     margin: 1rem;
     text-align: center;
 }
 
 .log-box {
-    width: 500px;
-    height: auto;
+    margin-bottom: 0;
+}
+
+.log-box {
+    min-width: 280px;
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     border-radius: 10px;
     box-shadow: inset -1px -1px 3px 1px rgba(0,0,0,0.600);
     background-color:rgba(51, 45, 139, 0.7);
     padding: 1rem;
-    margin-top: 5px;
 }
 
-.player-profile, .computer-profile {
+.player-profile,
+.computer-profile {
     border-radius: 20px;
     box-shadow: 0 0 4px 1px rgba(92, 92, 92, 0.411);
-    filter:opacity(85%);
+    filter:opacity(70%);
 }
 
-.victories {
+.victories-counter {
     color: rgb(75, 75, 75);
     font-weight: bold;
     margin-top: 3px;
     font-size: 1.1rem;
 }
 
+.license-credits {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 10px;
+    margin: 1rem;
+}
+
 .hidden {
     display: none;
 }
 
-.images-by {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 10px;
+@media screen and (max-width: 565px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-one::before {
+        content: 'You';
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .profile-two::before {
+        content: 'Computer';
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .profile-one,
+    .profile-two {
+        margin: .3rem;
+    }
+    
+    header {
+        min-height: 13vh;
+    }
 }

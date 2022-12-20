@@ -87,10 +87,10 @@ function playRound(playerChoice) {
         for(const playerButton of playerButtons) {
             playerButton.disabled = true;
         }
-        const keepPlaying = document.querySelector('.keep-playing');
-        keepPlaying.classList.remove('hidden');
-        keepPlaying.addEventListener('click', () => {
-            keepPlaying.classList.add('hidden');
+        const keepPlayingBtn = document.querySelector('.keep-playing-btn');
+        keepPlayingBtn.classList.remove('hidden');
+        keepPlayingBtn.addEventListener('click', () => {
+            keepPlayingBtn.classList.add('hidden');
             matchStats.playerScore = 0;
             matchStats.computerScore = 0;
             matchStats.tieScore = 0;
