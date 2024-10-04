@@ -6,10 +6,26 @@ const gameController = () => {
   };
 
   const setWinner = (player) => {
+    if (player === "Human") {
+      gameScore.human++;
+    } else {
+      gameScore.computer++;
+    }
+
     console.log(`-- ${player} Wins --`);
+    console.log(`Human Score: ${gameScore.human}`);
+    console.log(`Computer Score: ${gameScore.computer}`);
   };
 
   const playRound = (humanChoice) => {
+    if (gameScore.human === 5) {
+      console.log("Human Score: 5. Human wins the set!");
+      return;
+    } else if (gameScore.computer === 5) {
+      console.log("Computer Score: 5. Computer wins the set!");
+      return;
+    }
+
     const computerChoice = Math.floor(Math.random() * gameOptions.length);
 
     // Display the choices of both players before the result is calculated.
