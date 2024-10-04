@@ -1,18 +1,22 @@
 const gameController = () => {
   const gameOptions = ["Rock", "Paper", "Scissors"];
-
-  const logWinner = (result) => {
-    console.log(`-- ${result} Wins --`);
+  const gameScore = {
+    human: 0,
+    computer: 0,
   };
 
-  const playRound = (userChoice) => {
+  const setWinner = (player) => {
+    console.log(`-- ${player} Wins --`);
+  };
+
+  const playRound = (humanChoice) => {
     const computerChoice = Math.floor(Math.random() * gameOptions.length);
 
     // Display the choices of both players before the result is calculated.
-    console.log(`User picks: ${gameOptions[userChoice]}.`);
-    console.log(`Computer picks: ${gameOptions[computerChoice]}.`);
+    console.log(`Human: ${gameOptions[humanChoice]}`);
+    console.log(`Computer: ${gameOptions[computerChoice]}`);
 
-    if (userChoice - computerChoice === 0) {
+    if (humanChoice - computerChoice === 0) {
       console.log("-- Tie --");
       return;
     }
@@ -23,13 +27,13 @@ const gameController = () => {
     // 1 means whoever chose Paper wins because "paper(1) + rock(0) = 1"
     // 2 means whoever chose Rock wins becase "rock(0) + scissors(2) = 2"
     // 3 means whoever chose Scissors wins because "scissors(2) + paper(1) = 3"
-    switch (userChoice + computerChoice) {
+    switch (humanChoice + computerChoice) {
       case 1:
-        return userChoice === 1 ? logWinner("User") : logWinner("Computer");
+        return humanChoice === 1 ? setWinner("Human") : setWinner("Computer");
       case 2:
-        return userChoice === 0 ? logWinner("User") : logWinner("Computer");
+        return humanChoice === 0 ? setWinner("Human") : setWinner("Computer");
       case 3:
-        return userChoice === 2 ? logWinner("User") : logWinner("Computer");
+        return humanChoice === 2 ? setWinner("Human") : setWinner("Computer");
     }
   };
 
