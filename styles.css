@@ -1,0 +1,38 @@
+body {
+  font-family: monospace;
+  letter-spacing: 2px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+h2,
+.credits {
+  text-align: center;
+}
+
+img {
+  border-radius: 100%;
+  height: auto;
+  width: 150px;
+  max-width: 30%;
+  transition: background-color 0.5s ease;
+
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.human-option:hover {
+  filter: brightness(107%);
+}
+
+.human-selected {
+  background-color: rgb(80, 216, 152);
+}
+
+.computer-selected {
+  background-color: rgb(255, 194, 113);
+}

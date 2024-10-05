@@ -3,10 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-    <h1>Rock Paper Scissors on the console</h1>
+    <div class="board">
+      <div class="human">
+        <h2>Human <span class="human-choice"></span></h2>
+        <img
+          class="option human-option"
+          src="./img/human-rock.png"
+          alt="Human Rock Button"
+          data-human-index="0"
+        />
+        <img
+          class="option human-option"
+          src="./img/human-paper.png"
+          alt="Human Paper Button"
+          data-human-index="1"
+        />
+        <img
+          class="option human-option"
+          src="./img/human-scissors.png"
+          alt="Human Scissors Button"
+          data-human-index="2"
+        />
+      </div>
+
+      <div class="computer">
+        <h2>Computer <span class="computer-choice"></span></h2>
+        <img
+          class="option computer-option"
+          src="./img/computer-rock.png"
+          alt="Computer Rock Button"
+          data-computer-index="0"
+        />
+        <img
+          class="option computer-option"
+          src="./img/computer-paper.png"
+          alt="Computer Paper Button"
+          data-computer-index="1"
+        />
+        <img
+          class="option computer-option"
+          src="./img/computer-scissors.png"
+          alt="Computer Scissors Button"
+          data-computer-index="2"
+        />
+      </div>
+
+      <div class="game-state">
+        <h2>Human Score: <span class="human-score">0</span></h2>
+        <h2>Computer Score: <span class="computer-score">0</span></h2>
+        <h2 class="round-number"></h2>
+        <h2 class="round-result"></h2>
+      </div>
+    </div>
+
+    <div class="credits">
+      <a
+        href="https://www.freepik.com/free-vector/collection-sign-language-icons_1039410.htm"
+        target="_blank"
+        >Image by freepik</a
+      >
+    </div>
+
     <script src="./index.js"></script>
   </body>
 </html>

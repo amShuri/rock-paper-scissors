@@ -1,9 +1,13 @@
 const gameController = () => {
   const gameOptions = ["Rock", "Paper", "Scissors"];
-  const gameScore = {
-    human: 0,
-    computer: 0,
-  };
+  const gameScore = { human: 0, computer: 0 };
+  const gameState = { roundResult: null, isGameOver: false };
+  let computerChoice;
+
+  const getGameOptions = () => gameOptions;
+  const getGameScore = () => gameScore;
+  const getGameState = () => gameState;
+  const getComputerChoice = () => computerChoice;
 
   const setWinner = (player) => {
     if (player === "Human") {
@@ -12,28 +16,20 @@ const gameController = () => {
       gameScore.computer++;
     }
 
-    console.log(`-- ${player} Wins --`);
-    console.log(`Human Score: ${gameScore.human}`);
-    console.log(`Computer Score: ${gameScore.computer}`);
+    gameState.roundResult = `${player}++`;
   };
 
   const playRound = (humanChoice) => {
-    if (gameScore.human === 5) {
-      console.log("Human Score: 5. Human wins the set!");
-      return;
-    } else if (gameScore.computer === 5) {
-      console.log("Computer Score: 5. Computer wins the set!");
+    if (gameScore.human === 5 || gameScore.computer === 5) {
+      gameState.isGameOver = true;
       return;
     }
 
-    const computerChoice = Math.floor(Math.random() * gameOptions.length);
-
-    // Display the choices of both players before the result is calculated.
-    console.log(`Human: ${gameOptions[humanChoice]}`);
-    console.log(`Computer: ${gameOptions[computerChoice]}`);
+    // Randomly choose a number for the computer.
+    computerChoice = Math.floor(Math.random() * gameOptions.length);
 
     if (humanChoice - computerChoice === 0) {
-      console.log("-- Tie --");
+      gameState.roundResult = "TIE";
       return;
     }
 
@@ -53,11 +49,74 @@ const gameController = () => {
     }
   };
 
-  return { playRound };
+  return {
+    playRound,
+    getGameScore,
+    getGameOptions,
+    getGameState,
+    getComputerChoice,
+  };
 };
 
-const game = gameController();
+const screenController = () => {
+  const game = gameController();
+  const gameOptions = game.getGameOptions();
+  const board = document.querySelector(".board");
 
-console.warn(
-  "Use game.playRound() to play. Pass in 0 for rock, 1 for paper, or 2 for scissors."
-);
+  const updatePlayerScores = (human, computer) => {
+    const humanScore = document.querySelector(".human-score");
+    const computerScore = document.querySelector(".computer-score");
+    humanScore.textContent = human;
+    computerScore.textContent = computer;
+  };
+
+  const updatePlayerChoice = (human, computer) => {
+    const humanChoice = document.querySelector(".human-choice");
+    const computerChoice = document.querySelector(".computer-choice");
+    humanChoice.textContent = human;
+    computerChoice.textContent = computer;
+  };
+
+  const updateRoundResult = (result) => {
+    const roundResult = document.querySelector(".round-result");
+    roundResult.textContent = result;
+  };
+
+  const highlightPlayerOption = (human, computer) => {
+    // Unhighlight highlighted options first
+    document.querySelectorAll(".option").forEach((option) => {
+      option.classList.remove("human-selected", "computer-selected");
+    });
+
+    board
+      .querySelector(`img[data-human-index="${human}"]`)
+      .classList.add("human-selected");
+
+    board
+      .querySelector(`img[data-computer-index="${computer}"]`)
+      .classList.add("computer-selected");
+  };
+
+  const clickHandlerBoard = (e) => {
+    const selectdOption = e.target;
+    if (!selectdOption.classList.contains("human-option")) return;
+    const humanChoice = Number(selectdOption.dataset.humanIndex);
+
+    // playRound() must be called before we can get the computer's choice.
+    game.playRound(humanChoice);
+    const gameState = game.getGameState();
+    if (gameState.isGameOver) return;
+    updateRoundResult(gameState.roundResult);
+
+    const computerChoice = game.getComputerChoice();
+    const playerScores = game.getGameScore();
+
+    highlightPlayerOption(humanChoice, computerChoice);
+    updatePlayerChoice(gameOptions[humanChoice], gameOptions[computerChoice]);
+    updatePlayerScores(playerScores.human, playerScores.computer);
+  };
+
+  board.addEventListener("click", clickHandlerBoard);
+};
+
+screenController();
