@@ -98,9 +98,9 @@ const screenController = () => {
   };
 
   const clickHandlerBoard = (e) => {
-    const selectdOption = e.target;
-    if (!selectdOption.classList.contains("human-option")) return;
-    const humanChoice = Number(selectdOption.dataset.humanIndex);
+    const selectedOption = e.target;
+    if (!selectedOption.classList.contains("human-option")) return;
+    const humanChoice = Number(selectedOption.dataset.humanIndex);
 
     // playRound() must be called before we can get the computer's choice.
     game.playRound(humanChoice);
