@@ -19,6 +19,14 @@ const gameController = () => {
     gameState.roundResult = `${player}++`;
   };
 
+  const resetGame = () => {
+    gameScore.human = 0;
+    gameScore.computer = 0;
+    gameState.roundResult = null;
+    gameState.isGameOver = false;
+    computerChoice = null;
+  };
+
   const playRound = (humanChoice) => {
     if (gameScore.human === 5 || gameScore.computer === 5) {
       gameState.isGameOver = true;
@@ -55,6 +63,7 @@ const gameController = () => {
     getGameOptions,
     getGameState,
     getComputerChoice,
+    resetGame,
   };
 };
 
@@ -62,6 +71,7 @@ const screenController = () => {
   const game = gameController();
   const gameOptions = game.getGameOptions();
   const board = document.querySelector(".board");
+  const resetButton = document.querySelector(".reset-btn");
 
   const updatePlayerScores = (human, computer) => {
     const humanScore = document.querySelector(".human-score");
@@ -82,12 +92,13 @@ const screenController = () => {
     roundResult.textContent = result;
   };
 
-  const highlightPlayerOption = (human, computer) => {
-    // Unhighlight highlighted options first
+  const unhighlightPlayerOptions = () => {
     document.querySelectorAll(".option").forEach((option) => {
       option.classList.remove("human-selected", "computer-selected");
     });
+  };
 
+  const highlightPlayerOption = (human, computer) => {
     board
       .querySelector(`img[data-human-index="${human}"]`)
       .classList.add("human-selected");
@@ -95,6 +106,17 @@ const screenController = () => {
     board
       .querySelector(`img[data-computer-index="${computer}"]`)
       .classList.add("computer-selected");
+  };
+
+  const clickHandlerReset = () => {
+    if (!confirm("Reset the game?")) return;
+
+    // clean up the board.
+    unhighlightPlayerOptions();
+    updateRoundResult("");
+    updatePlayerChoice("", "");
+    updatePlayerScores(0, 0);
+    game.resetGame();
   };
 
   const clickHandlerBoard = (e) => {
@@ -111,12 +133,15 @@ const screenController = () => {
     const computerChoice = game.getComputerChoice();
     const playerScores = game.getGameScore();
 
+    // Unhighlight highlighted options before highlighting new ones.
+    unhighlightPlayerOptions();
     highlightPlayerOption(humanChoice, computerChoice);
     updatePlayerChoice(gameOptions[humanChoice], gameOptions[computerChoice]);
     updatePlayerScores(playerScores.human, playerScores.computer);
   };
 
   board.addEventListener("click", clickHandlerBoard);
+  resetButton.addEventListener("click", clickHandlerReset);
 };
 
 screenController();

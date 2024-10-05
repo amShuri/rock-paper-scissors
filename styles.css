@@ -36,3 +36,8 @@ img {
 .computer-selected {
   background-color: rgb(255, 194, 113);
 }
+
+.reset-btn {
+  padding: 0.5rem 1rem;
+  margin-bottom: 14px;
+}
