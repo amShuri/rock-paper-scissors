@@ -9,6 +9,10 @@ const gameController = () => {
   const getGameState = () => gameState;
   const getComputerChoice = () => computerChoice;
 
+  const alertWinner = (winner) => {
+    alert(`${winner} WON! Restart the game to continue playing.`);
+  };
+
   const setWinner = (player) => {
     if (player === "Human") {
       gameScore.human++;
@@ -29,7 +33,12 @@ const gameController = () => {
   };
 
   const playRound = (humanChoice) => {
-    if (gameScore.human === 5 || gameScore.computer === 5) {
+    if (gameScore.human === 5) {
+      alertWinner("HUMAN");
+      gameState.isGameOver = true;
+      return;
+    } else if (gameScore.computer === 5) {
+      alertWinner("COMPUTER");
       gameState.isGameOver = true;
       return;
     }
