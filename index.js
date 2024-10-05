@@ -1,7 +1,7 @@
 const gameController = () => {
   const gameOptions = ["Rock", "Paper", "Scissors"];
   const gameScore = { human: 0, computer: 0 };
-  const gameState = { roundResult: null, isGameOver: false };
+  const gameState = { turnCount: 0, roundResult: null, isGameOver: false };
   let computerChoice;
 
   const getGameOptions = () => gameOptions;
@@ -24,6 +24,7 @@ const gameController = () => {
     gameScore.computer = 0;
     gameState.roundResult = null;
     gameState.isGameOver = false;
+    gameState.turnCount = 0;
     computerChoice = null;
   };
 
@@ -32,6 +33,9 @@ const gameController = () => {
       gameState.isGameOver = true;
       return;
     }
+
+    // Increase the turn count by 1
+    gameState.turnCount++;
 
     // Randomly choose a number for the computer.
     computerChoice = Math.floor(Math.random() * gameOptions.length);
@@ -92,6 +96,11 @@ const screenController = () => {
     roundResult.textContent = result;
   };
 
+  const updateTurnCount = (turn) => {
+    const turnCount = document.querySelector(".turn-count");
+    turnCount.textContent = turn;
+  };
+
   const unhighlightPlayerOptions = () => {
     document.querySelectorAll(".option").forEach((option) => {
       option.classList.remove("human-selected", "computer-selected");
@@ -116,6 +125,7 @@ const screenController = () => {
     updateRoundResult("");
     updatePlayerChoice("", "");
     updatePlayerScores(0, 0);
+    updateTurnCount(0);
     game.resetGame();
   };
 
@@ -129,12 +139,14 @@ const screenController = () => {
     const gameState = game.getGameState();
     if (gameState.isGameOver) return;
     updateRoundResult(gameState.roundResult);
+    updateTurnCount(gameState.turnCount);
 
     const computerChoice = game.getComputerChoice();
     const playerScores = game.getGameScore();
 
     // Unhighlight highlighted options before highlighting new ones.
     unhighlightPlayerOptions();
+
     highlightPlayerOption(humanChoice, computerChoice);
     updatePlayerChoice(gameOptions[humanChoice], gameOptions[computerChoice]);
     updatePlayerScores(playerScores.human, playerScores.computer);
